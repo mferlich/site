@@ -43,8 +43,6 @@
       <option value="exact">Exact</option>
       <option value="Begins With">Begins With</option>
       <option value="Ends With">Ends With</option>
-      <option value="Greater than">Greater Than</option>
-      <option value="Less than">Less Than</option>
       </select>
       
 

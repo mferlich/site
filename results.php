@@ -1,4 +1,7 @@
-<?php require_once("session.php"); ?>
+<?php
+header('Cache-Control: no cache'); //no cache
+session_cache_limiter('private_no_expire'); // works 
+require_once("session.php"); ?>
 <?php 
   #establishes DB connection and includes various global functions
   verify_login();
@@ -8,34 +11,150 @@
     echo $output;
   }
 
-/*if(isset($_POST["search"])){
-  echo $_POST["field"];
-}*/
-if(isset($_POST["search"])){
-    $name = $_POST["search"];
-    $name = preg_replace("#[^0-9a-z]#i","", $name);
+  // #create pagnation
+  // $results_per_page = 20;
+  // if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
+  // $start_from = ($page-1) * $results_per_page;
+$query0 = "SET @row_number=0";
+$mysqli ->query($query0);
 
-    if($_POST["field"]=="id"){
-      $query = "SELECT * FROM ";
-      $query .= "genbios WHERE ".$_POST["field"];
-      $query .= " LIKE '%".$name."%' LIMIT 1";
-    }
-    else{
-    $query = "SELECT * FROM ";
-    $query .= "genbios WHERE ".$_POST["field"];
-    $query .= " LIKE '%".$name."%'";
-    }
-    $result = $mysqli->query($query);
-    if ($result && $result ->num_rows >0){
-      /*echo "<table><tr><thead>";
-        echo "<th>ID</th><th>First Name</th><th>Last Name</th>";
-        echo "</tr></thead></table>";
-      echo "<table>";*/
-      while($row = $result ->fetch_assoc()){
-              echo $row["id"]." ".$row["firstname"]." ".$row["lastname"]."<hr /><br />";
-    }
-      echo "</table>";
-}
-}
+#if new search DROP table if exists
+// $query1 = "DROP TABLE IF EXISTS result";
+// $mysqli -> query($query1);
+
+
+
+  if(isset($_POST["search"])){
+
+              $query1 = "DROP TABLE IF EXISTS result";
+              $mysqli -> query($query1);
+              $name = $_POST["search"];
+              $field = $_POST["field"];
+             #creates temporary table for results
+             #if searching by ID only return 1 result
+              if($_POST["field"]=="id"){
+                $query2 = "CREATE TABLE result as SELECT *, (@row_number:=@row_number+1) as rn FROM ";
+                $query2 .= "genbios WHERE ".$_POST["field"];
+                $query2 .= " LIKE '%".$name."%' LIMIT 1";
+              }
+              else{
+                $query2 = "CREATE TABLE result SELECT *, (@row_number:=@row_number+1) as rn FROM ";
+                $query2 .= "genbios WHERE ".$_POST["field"];
+                $query2 .= " LIKE '%".$name."%'";
+
+              }
+             $mysqli->query($query2); 
+             $query3 = "SELECT * FROM result";
+             $result = $mysqli ->query($query3);
+            $count = $result->num_rows;        
+            }
+  else{
+    $mysqli->query($query2); 
+    $query3 = "SELECT * FROM result";
+    $result = $mysqli ->query($query3);
+    $count = $result->num_rows;  
+  }
 
 ?>
+
+<html lang="en">
+      <head>
+        <title>Search Results</title>
+        <link rel = "stylesheet" href = "css/resultsStyle.css" type="text/css" media="screen, projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <!--  <link rel="stylesheet" href="css/styles.css"> -->
+       <!--  <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet"> -->
+      </head>
+  <main>
+  <a href="search.php">Back to Search Page</a>
+    <table> 
+      <tr> 
+          <th>#</th>
+          <th>ID</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Nickname</th>
+          <th>Gender</th>
+          <th>Job</th>
+          <th>Spouse</th>
+          <th>Parents</th>
+          <th>Children</th>
+          <th>Other Family</th>
+          <th>Birth</th>
+          <th>Death</th>
+          <th>Place of Origin</th>
+          <th>Residence</th>
+          <th>Updated By</th>
+          <th>Last Updated</th>
+      </tr>
+        <?php
+              echo $count." Results Found";
+              if ($result && $result ->num_rows >0){
+              while($row = $result ->fetch_assoc()){
+                  echo "<tr>";
+                  echo "<td>";
+                  echo $row["rn"];
+                  echo "</td>";
+                  #make ID link to person page
+                  echo '<form action = "person.php" method="post" id="results-form">';
+                  echo "<td>";
+                  echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
+                  // echo '<input type="hidden" name="prevSearch" value='.$name.'>';
+                  echo '<input type="hidden" name="count" value='.$count.'>';
+                  // echo '<input type="hidden" name="field" value='.$_POST["field"].'>';
+                  echo '<input type="submit" name="submit" value='.$row["id"].'>';
+                  echo "</td>";
+                  #continue with other results
+                  echo "</form>";
+                  echo "<td>";
+                  echo $row["lastname"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["firstname"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["nickname"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["gender"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["occupation"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["spouse"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["parents"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["children"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["relations"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["birthdate"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["deathdate"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["origin"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["residence"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["modified_by"];
+                  echo "</td>";
+                  echo "<td>";
+                  echo $row["modified_date"];
+                  echo "</td>";
+                  echo "</tr>";
+              }
+            }
+        ?>
+     </table>
+     </main>
+</html>
