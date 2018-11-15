@@ -10,22 +10,16 @@ require_once("session.php"); ?>
   if (($output = message()) !== null) {
     echo $output;
   }
-
   // #create pagnation
   // $results_per_page = 20;
   // if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
   // $start_from = ($page-1) * $results_per_page;
 $query0 = "SET @row_number=0";
 $mysqli ->query($query0);
-
 #if new search DROP table if exists
 // $query1 = "DROP TABLE IF EXISTS result";
 // $mysqli -> query($query1);
-
-
-
   if(isset($_POST["search"])){
-
               $query1 = "DROP TABLE IF EXISTS result";
               $mysqli -> query($query1);
               $name = $_POST["search"];
@@ -41,7 +35,6 @@ $mysqli ->query($query0);
                 $query2 = "CREATE TABLE result SELECT *, (@row_number:=@row_number+1) as rn FROM ";
                 $query2 .= "genbios WHERE ".$_POST["field"];
                 $query2 .= " LIKE '%".$name."%'";
-
               }
              $mysqli->query($query2); 
              $query3 = "SELECT * FROM result";
@@ -54,7 +47,6 @@ $mysqli ->query($query0);
     $result = $mysqli ->query($query3);
     $count = $result->num_rows;  
   }
-
 ?>
 
 <html lang="en">
@@ -65,8 +57,12 @@ $mysqli ->query($query0);
        <!--  <link rel="stylesheet" href="css/styles.css"> -->
        <!--  <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet"> -->
       </head>
-  <main>
+  <header>
   <a href="search.php">Back to Search Page</a>
+  <br/>
+  <?php echo $count." Results Found"; ?>
+  </header>
+  <body>
     <table> 
       <tr> 
           <th>#</th>
@@ -88,7 +84,6 @@ $mysqli ->query($query0);
           <th>Last Updated</th>
       </tr>
         <?php
-              echo $count." Results Found";
               if ($result && $result ->num_rows >0){
               while($row = $result ->fetch_assoc()){
                   echo "<tr>";
@@ -156,5 +151,10 @@ $mysqli ->query($query0);
             }
         ?>
      </table>
-     </main>
+     </body>
+     <footer>
+     <?php echo $count." Results Found"; ?>
+      <br/>
+      <a href="search.php">Back to Search Page</a>
+     </footer>
 </html>

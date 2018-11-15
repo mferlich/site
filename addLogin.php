@@ -20,6 +20,19 @@
 //           If they are, then first check to see if the username already exists
 //           If the user name does not exist, then add the username and their hashed password
 //               to the admins table in your database 
+if($_SESSION["userlevel"] == 0){
+	redirect_to("home.php");
+	echo "You don't have the user privledge to create a new account";
+}
+if($_SESSION["userlevel"] == 1){
+	redirect_to("home.php");
+	echo "You don't have the user privledge to create a new account";
+}
+if($_SESSION["userlevel"] == 2){
+	redirect_to("home.php");
+	echo "You don't have the user privledge to create a new account";
+}
+
 if (isset($_POST["submit"])) {
 if (isset($_POST["username"]) && $_POST["username"] !== "" &&
 isset($_POST["password"]) && $_POST["password"] !== "") {
@@ -59,25 +72,13 @@ redirect_to("addLogin.php");
 	    //Grab posted values for username and password.  Immediately encrypt the password
 		//so that it is set up to compare with the encrypted password in the database
 		//Use password_encrypt
-
-		
 		
 		//Check to make sure user does not already exist by querying database
-
-		
-		
+	
 		//User exists so output that the user already exists
-
-		
-		
-		
+	
 		//User does not already exist so add to admins table
 
-		
-		
-
-			
-			
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
 <!doctype html>

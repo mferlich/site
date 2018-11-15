@@ -102,43 +102,82 @@ require_once("session.php");
   }
 ?>
 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Geneva Consistory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet"></head>
+  <body>
+    <div class="main-nav">
+        <ul class="nav">
+          <li><a  class="name" href = "results.php">Back To Results</li>
+          <li><a href="home.php">Home</a></li>
+          <?php
+          if($_SESSION["userlevel"]==3){
+          echo "<li><a href='addLogin.php'>Add User</a></li>";
+          } 
+          ?>
+          <li><a href="logout.php">Logout</a></li>
+          <li><a href="search.php">Search</a></li>
+        </ul>
+    </div>
 
+    <main class="flex">
+      <div class="card">
+        <h2 class="card-title"><?php echo "Record ID: ".$ID; ?></h2>
+        <h2>General Information:<h2>
+        <ul>
+          <?php
+          echo "<li style='font-weight:normal'>First Name:
+            <input type='text' name='fname' value=".$firstName.">
+          </li>";
+          echo '<li style="font-weight:normal">Last Name:
+            <input type="text" name="lname" value="'.$lastName.'">
+          </li>';
+          echo '<li style="font-weight:normal">Occupation:
+            <input type="text" name="fname" value="'.$job.'">
+          </li>';
+          echo '<li style="font-weight:normal">Birth:
+            <input type="text" name="fname" value="'.$birthDay.'">
+          </li>';
+          echo '<li style="font-weight:normal">Death:
+            <input type="text" name="fname" value="'.$deathDay.'">
+          </li>';
+          echo '<li style="font-weight:normal">Origin:
+            <input type="text" name="fname" value="'.$origin.'">
+          </li>';
+          echo '<li style="font-weight:normal">Residence:
+            <input type="text" name="fname" value="'.$residence.'">
+          </li>';
+          echo '<li style="font-weight:normal">Spouse:
+            <input type="text" name="fname" value="'.$spouse.'">
+          </li>';
+          echo '<li style="font-weight:normal">Parents:
+            <input type="text" name="fname" value="'.$parents.'">
+          </li>';
+          echo '<li style="font-weight:normal">Children:
+            <input type="text" name="fname" value="'.$children.'">
+          </li>';
+          echo '<li style="font-weight:normal">Other Relatives:
+            <input type="text" name="fname" value="'.$relative.'">
+          </li>';
 
-<!DOCTYPE html>
-<html>
-<body>
-<title>
-	<?php
-	echo $ID.": ".$firstName." ".$lastName;
-	?>
-</title>
-<h1>Showing record <?php echo $thisRow; ?> out of <?php echo $count;?></h1>
-<h2><?php echo $ID.": ".$firstName." ".$lastName."'s Record"; ?></h2>
-<h2>Next Record:</h2>
-	<?php
-	echo '<form action = "person.php" method ="post" id= "next-result">';
-	echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
-	echo '<input type="hidden" name="count" value='.$count.'>';
-	echo '<input type="submit" name="next" value="Next">';
-	echo '</form>';
-	?>
+          ?> 
+        </ul>
+      </div>
+      <div class="card">
+        <h2 class = "card-title">Annotation</h2>
+        <textarea> <?php echo $note; ?></textarea>
+      </div> 
 
-<h2>Previous Record:</h2>
-	<?php
-	echo '<form action = "person.php" method ="post" id= "prev-result">';
-	echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
-	echo '<input type="hidden" name="count" value='.$count.'>';
-	echo '<input type="submit" name="prev" value="Previous">';
-	echo '</form>';
-	?>
-<h2>Back to results:</h2>
-
-	<?php
-	echo '<form action = "results.php" method ="post" id= "prev-result">';
-	echo '<input type="submit" name="Back to Results" value=Back To Results>';
-	echo '</form>';
-	?>
-
-
-</body>
-</html>
+    </main>
+    <footer>
+      <ul>
+        <li><a href="http://olemiss.edu" target="_blank" class="social olemiss"> Ole Miss</a></li>
+      </ul>
+      <p class="copyright">Copyright 2018, Ole Miss</p>
+    </footer>
+  </body>
+  </html>

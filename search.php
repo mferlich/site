@@ -23,8 +23,8 @@
 <main>
   <form action = "results.php" method="post" id="search-form">
   <!Dropdown for Field Selection>
-      Field:
-      <select name="field" form="search-form">
+      
+      <h2 style="font-weight: normal">Field: <select name="field" form="search-form">
       <option value="firstname">First Name</option>
       <option value="lastname ">Last Name</option>
       <option value="id">ID</option>
@@ -38,15 +38,14 @@
 
       <!Dropdown for Match Type Selection>
       Match Type:
-      <select name="match" form="search-form">
+      <select  class= "custom-select" name="match" form="search-form">
       <option value="includes">Includes</option>
       <option value="exact">Exact</option>
       <option value="Begins With">Begins With</option>
       <option value="Ends With">Ends With</option>
-      </select>
+      </select></h2>
       
-
-      <input type="text" name="search" placeholder="Search">
+      <input type="search" name="search" placeholder="Search">
       <input type="submit" value=">>" />
     </form>
 </main>

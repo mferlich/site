@@ -23,14 +23,17 @@
         <ul class="nav">
           <li class="name">Ole Miss Geneva Consistory</li>
           <li><a href="#">Home</a></li>
-          <li><a href="addLogin.php">Add User</a></li>
+          <?php
+          if($_SESSION["userlevel"]==3){
+          echo "<li><a href='addLogin.php'>Add User</a></li>";
+          } 
+          ?>
           <li><a href="logout.php">Logout</a></li>
           <li><a href="#">Contact Support</a></li>
         </ul>
     </div>
 
     <header>
-     <! <img src="http://placeimg.com/400/400/people" alt="Drawing of Jane Smith" class="profile-image"> 
       <h1 class="tag name">Welcome to the Geneva Consistory!</h1>
     </header>
 
