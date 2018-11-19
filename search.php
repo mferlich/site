@@ -1,3 +1,17 @@
+<?php 
+header('Cache-Control: no cache'); //no cache
+session_cache_limiter('private_no_expire'); // works 
+require_once("session.php");
+ ?>
+<?php 
+  #establishes DB connection and includes various global functions
+  verify_login();
+  require_once("includedFunctions.php"); 
+  $mysqli = db_connection();
+  if (($output = message()) !== null) {
+    echo $output;
+  }
+?>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -46,7 +60,7 @@
       </select></h2>
       
       <input type="search" name="search" placeholder="Search">
-      <input type="submit" value=">>" />
+      <input type="submit" value=">>" style="border-color: #479652a8" />
     </form>
 </main>
 
