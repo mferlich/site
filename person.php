@@ -1,20 +1,22 @@
 <?php 
-header('Cache-Control: no cache'); //no cache
-session_cache_limiter('private_no_expire'); // works 
-require_once("session.php");
+header('Cache-Control: no cache'); //NO CACHE
+session_cache_limiter('private_no_expire'); 
+require_once("session.php"); // INCLUDES SESSION INFORMATION
  ?>
 <?php 
-  #establishes DB connection and includes various global functions
-  verify_login();
+  #ESTABLISHES DB CONNECTION AND INCLUDES VARIOUS GLOBAL FUNCTION
+  verify_login(); #VERIFIES USER IS LOGGED IN
   require_once("includedFunctions.php"); 
   $mysqli = db_connection();
   if (($output = message()) !== null) {
     echo $output;
   }
 
+  #GETS THE ROW COUNTER READY FOR A NEW SEARCH
   $query0 = "SET @row_number=0";
   $mysqli ->query($query0);
 
+#GET RECORD INFO IF COMING FROM RESULTS PAGE
   if (isset($_POST["submit"])){
   	$query = "SELECT * FROM result WHERE id = ".$_POST["submit"];
   	$result = $mysqli->query($query);
@@ -43,6 +45,7 @@ require_once("session.php");
   	$result = $_POST["result"];
   }
 
+#GET RECORD INFO FOR NEXT RESULT 
   if (isset($_POST["next"])){
   	$query = "SELECT * FROM result WHERE rn = ".$_POST["thisRow"]."+1";
   	$result = $mysqli->query($query);
@@ -67,11 +70,10 @@ require_once("session.php");
   	$note = $row["annotation"];
   	$thisRow = $_POST["thisRow"]+1;
   	$count = $_POST["count"];
-  	// $field = $_POST["ogField"];
-  	// $name = $_POST["ogSearch"];
   	$result = $_POST["result"];
   }
 
+#get record info for previous result
   if (isset($_POST["prev"])){
   	$query = "SELECT * FROM result WHERE rn = ".$_POST["thisRow"]."-1";
   	$result = $mysqli->query($query);
@@ -96,13 +98,14 @@ require_once("session.php");
   	$note = $row["annotation"];
   	$thisRow = $_POST["thisRow"]-1;
   	$count = $_POST["count"];
-  	// $field = $_POST["ogField"];
-  	// $name = $_POST["ogSearch"];
   	$result = $_POST["result"];
   }
 
+#get record info after making an edit to a record
   if (isset($_POST["submitEdit"])){
-    $newNote = htmlspecialchars($_POST["note"], ENT_QUOTES);
+
+    #MAKES CHANGES TO TEMPORARY SEARCH RESULTS TABLE
+    $newNote = htmlspecialchars($_POST["note"], ENT_QUOTES); #REPLACES QUOTES WITH HTML ENTITIES SO THAT THE ANNOTATION WILL BE UPDATED
     $query = "UPDATE result set gender ='".$_POST["gender"]."'";
     $query .= ", firstname='".$_POST["fname"]."'";
     $query .= ", lastname='".$_POST["lname"]."'";
@@ -119,6 +122,26 @@ require_once("session.php");
     $query .= ", annotation='".$newNote."'";
     $query .=" WHERE id ='".$_POST["id"]."'";
     $mysqli->query($query);
+
+    #MAKES CHANGES PERMANENT
+    $query = "UPDATE genbios set gender ='".$_POST["gender"]."'";
+    $query .= ", firstname='".$_POST["fname"]."'";
+    $query .= ", lastname='".$_POST["lname"]."'";
+    $query .= ", nickname='".$_POST["nickname"]."'";
+    $query .= ", occupation='".$_POST["occupation"]."'";
+    $query .= ", spouse='".$_POST["spouse"]."'";
+    $query .= ", parents='".$_POST["parents"]."'";
+    $query .= ", children='".$_POST["children"]."'";
+    $query .= ", relations='".$_POST["relatives"]."'";
+    $query .= ", birthdate='".$_POST["birthday"]."'";
+    $query .= ", deathdate='".$_POST["deathday"]."'";
+    $query .= ", origin='".$_POST["origin"]."'";
+    $query .= ", residence='".$_POST["residence"]."'";
+    $query .= ", annotation='".$newNote."'";
+    $query .=" WHERE id ='".$_POST["id"]."'";
+    $mysqli->query($query);
+
+    #GETS RECORD WITH NEW CHANGES
     $query = "SELECT * FROM result WHERE id = ".$_POST["id"];
     $result = $mysqli->query($query);
     $row= $result -> fetch_assoc();
@@ -147,6 +170,7 @@ require_once("session.php");
   }
 ?>
 
+<!-- BEGIN HTML -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -182,7 +206,7 @@ require_once("session.php");
   echo '</form>';
   }
 
-  echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 215px">';
+  echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 190px">';
   echo '<input type="submit" name="Back to Results" value="Back To Results" style="font-size: larger">';
   echo '</form>';
 
@@ -225,14 +249,28 @@ require_once("session.php");
             echo '<form action = "edit.php" method ="post" id= "edit-page">';
             echo '<input type="hidden" name="id" value='.$ID.'>';
             echo '<input type="hidden" name="count" value='.$count.'>';
-            echo '<input type="submit" name="edit" value="Edit This Record" style="font-size: larger; padding: 0px 100px 0px 100px; color: red;">';
+            echo '<input type="submit" name="edit" value="Edit This Record" style="font-size: larger; padding: 0px 100px 0px 100px;">';
             echo '</form>';
           }
           ?>
       </div>
       <div class="card">
         <h2 class = "card-title">Annotation</h2>
-        <textarea readonly> <?php echo $note; ?></textarea>
+        <textarea readonly> <?php echo $note; ?></textarea><br />
+        <?php
+        $query1 = "SELECT modified_date FROM versions where recordId=".$ID;
+        $result1 = $mysqli->query($query1);
+        if ($result1 && $result1 ->num_rows >0){
+         echo '<form action = "version.php" method= "post" id="version-page" style= "padding: 20px;">';
+         echo '<input type="hidden" name="id" value='.$ID.'>';
+         $note = htmlspecialchars($note, ENT_QUOTES);
+         echo '<input type="hidden" name="note" value="'.$note.'">';
+         echo '<input type="hidden" name="currentModDate" value='.$modDate.'>';
+         echo '<input type="submit" name="versions" value="View Past Versions" style="font-size: larger; padding: 0px 100px 0px 100px;">';
+         echo "</form>";
+       }
+       else{}
+         ?>
       </div> 
     </main>
     <div class = "button-container">

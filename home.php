@@ -1,5 +1,5 @@
-<! This is the Home Page for the Geneva Consistory>
-<!Includes the session functions>
+<!-- <! This is the Home Page for the Geneva Consistory>
+<!Includes the session functions> -->
 <?php require_once("session.php"); ?>
 <?php 
   #establishes DB connection and includes various global functions

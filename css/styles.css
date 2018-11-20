@@ -2,6 +2,94 @@
 * { 
   box-sizing: border-box;
 }
+
+li{
+  padding: 5px;
+}
+input {
+}
+
+input[type=text]{
+  width: 100%;
+  border: 2px solid #3CBC8D;
+  border-radius: 10px;
+  font-size: large;
+  outline: none;
+}
+
+input[type=text]:focus{
+  border: 3px solid #555;
+}
+
+input[type=password]{
+  width: 10f%;
+  border: 2px solid #3CBC8D;
+  border-radius: 10px;
+  font-size: large;
+  outline: none;
+}
+
+input[type=submit] {
+  border-radius: 3px;
+  border: 2px solid #1e00ff;
+  padding: 9px 9px 6px 9px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  outline: blue;
+  border-radius: 3px;
+  border: 2px solid black;
+  color: red;
+}
+
+input[type=submit]:focus{
+  outline: none;
+  border: 3px solid #555;
+}
+
+input[type=button] {
+  border-radius: 3px;
+  border: 2px solid red;
+  padding: 9px 9px 6px 9px;
+  cursor: pointer;
+  font-size: larger;
+  margin-bottom: 20px;
+}
+
+.edit{
+  outline: blue;
+  border-radius: 3px;
+  border: 2px solid black;
+}
+
+input[type=search]{
+  border: 2px solid #479652a8;
+  border-radius: 5px; 
+  width: 430px;
+  padding: 5px;
+  font-size: inherit;
+}
+input[type=search]:focus{
+  outline: none;
+  border: 3px solid #555;
+}
+
+textarea{
+  height: 790px;
+  width: 442px;
+  border: 3px solid grey;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  text-align: justify;
+  text-align-last: center;
+  word-wrap:break-word;
+}
+
+
+select{
+  font-size: large
+}
   
 body {
   margin: 0;
@@ -58,6 +146,14 @@ header {
   background-size: cover;
   overflow: hidden;
   padding-top: 60px;
+}
+
+header .record-view{
+  overflow: hidden;
+  padding-top: 60px;
+  text-align: center;
+  min-height: 100px;
+
 }
 header {
   line-height: 1.5;
@@ -208,9 +304,71 @@ h3 {
     color: green;
     letter-spacing: .5px;
 }
+
+h4{
+  display: inline;
+  font-weight: 800;
+}
 .card-title{
   text-align: center;
   border: solid black 3px;
   border-radius: 10px;
   margin-top: 50px;
+}
+
+
+.button-container form,
+.button-container form div {
+    display: inline;
+    margin: 150px;
+}
+
+.button-container button {
+    display: inline;
+    vertical-align: middle;
+}
+
+ins.diffchange {font-weight:bold; background-color:lightgreen;}
+del.diffchange {text-decoration:strikethrough; background-color:pink;}
+div.versionCompare {
+  text-align:center;
+}
+
+div.versionCompare {
+  width: 100%;
+  background-color: white;
+}
+
+div.versionCompare table {
+  margin:auto;
+  border: 1px solid black;
+}
+
+div.versionCompare table table {
+  border: none;
+}
+div.versionCompare .header {
+  font-weight:bold; font-size: 115%;
+  }
+div.versionCompare td {
+  padding: 5px 1em 5px 1em;
+  border: 1px solid black;
+  }
+
+div.versionCompare td td {
+  padding: 5px 1em 5px 1em;
+  border: none;
+  }
+
+td.diff-addedLine{
+  padding: 5px 1em 5px 1em;
+  border: none;
+}
+
+div.versionCompare td.colHeader {
+  font-weight: bold;
+}
+
+div.versionCompare tr.even, div.versionCompare tr.even td {
+  background-color: #ccc;
 }

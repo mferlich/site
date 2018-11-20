@@ -58,16 +58,21 @@ redirect_to("index.php");
 ?>
 
 <!doctype html>
-<html lang="en">
-		<div class='row'>
-		<label for='left-label' class='left inline'>
-
-		<h3>Please login to continue to the Consistory</h3>
-
-<!--//////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!--    		Create a form with textboxes for adding both a username and password -->
+<html lang="en" style= "background-image: url('images/background.png'); background-size: cover; opacity: 50%; padding: 10px;">
+<meta charset="utf-8">
+  <title>Geneva Consistory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+<body style="background: transparent";>
+<div>
 <form action="index.php" method="post">
- <p>Username:<input type="text" name="username" value="" /> </p>
- <p>Password: <input type="password" name="password" value="" /> </p>
- <input type="submit" name="submit" value="Login" />
+<h3 style="color: white;">Please login to continue to the Consistory</h3>
+ <p style= "color:white;">Username:  <input type="text" name="username" value="" style="width:10%;" /> </p>
+ <p style= "color:white;">Password:  <input type="password" name="password" value="" style="width:10%" /> </p>
+ <input type="submit" name="submit" value="Login" style="width: 200px; font-size:larger;" />
 </form>
+<h3 style= "color: white;">If you want access to the Geneva Consistory Biographical Database, you must apply for access. Please contact Isabella Watt at iwatt@olemiss.edu</h3>
+</div>
+<main></main>
+</body>
+</html>

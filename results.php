@@ -29,7 +29,7 @@ $mysqli ->query($query0);
               if($_POST["field"]=="id"){
                 $query2 = "CREATE TABLE result as SELECT *, (@row_number:=@row_number+1) as rn FROM ";
                 $query2 .= "genbios WHERE ".$_POST["field"];
-                $query2 .= " LIKE '%".$name."%' LIMIT 1";
+                $query2 .= " LIKE '".$name."' LIMIT 5";
               }
               else{
                 $query2 = "CREATE TABLE result SELECT *, (@row_number:=@row_number+1) as rn FROM ";
