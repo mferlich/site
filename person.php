@@ -1,6 +1,6 @@
 <?php 
-header('Cache-Control: no cache'); //NO CACHE
-session_cache_limiter('private_no_expire'); 
+header('Cache-Control: no cache'); //no cache
+session_cache_limiter('private_no_expire'); // works 
 require_once("session.php"); // INCLUDES SESSION INFORMATION
  ?>
 <?php 
@@ -18,7 +18,7 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
 
 #GET RECORD INFO IF COMING FROM RESULTS PAGE
   if (isset($_POST["submit"])){
-  	$query = "SELECT * FROM result WHERE id = ".$_POST["submit"];
+    $query = "SELECT * FROM result WHERE id = ".$_POST["submit"];
   	$result = $mysqli->query($query);
   	$row= $result -> fetch_assoc();
   	$ID = $row["id"];
@@ -261,12 +261,21 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
         $query1 = "SELECT modified_date FROM versions where recordId=".$ID;
         $result1 = $mysqli->query($query1);
         if ($result1 && $result1 ->num_rows >0){
+
+        echo '<form action = "compare.php" method= "post" id="version-page" style= "padding: 20px 20px 0px 20px;">';
+         echo '<input type="hidden" name="id" value='.$ID.'>';
+         $note = htmlspecialchars($note, ENT_QUOTES);
+         echo '<input type="hidden" name="note" value="'.$note.'">';
+         echo '<input type="hidden" name="currentModDate" value='.$modDate.'>';
+         echo '<input type="submit" name="compare" value="Compare Versions" style="font-size: larger; padding: 0px 100px 0px 100px;">';
+         echo "</form>";
+
          echo '<form action = "version.php" method= "post" id="version-page" style= "padding: 20px;">';
          echo '<input type="hidden" name="id" value='.$ID.'>';
          $note = htmlspecialchars($note, ENT_QUOTES);
          echo '<input type="hidden" name="note" value="'.$note.'">';
          echo '<input type="hidden" name="currentModDate" value='.$modDate.'>';
-         echo '<input type="submit" name="versions" value="View Past Versions" style="font-size: larger; padding: 0px 100px 0px 100px;">';
+         echo '<input type="submit" name="versions" value="View Past Versions" style="font-size: larger; padding: 0px 100px 0px 95px;">';
          echo "</form>";
        }
        else{}

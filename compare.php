@@ -11,7 +11,7 @@ require_once("session.php");
   if (($output = message()) !== null) {
     echo $output;
   }
-  if (isset($_POST["versions"])){
+  if (isset($_POST["compare"])){
     $currentNote = $_POST["note"];
     $currentModDate = $_POST["currentModDate"];
     $query = "SELECT * FROM versions WHERE recordId = ".$_POST["id"];
@@ -74,11 +74,11 @@ require_once("session.php");
           <?php
           if($result && $result ->num_rows >0){
             while($row = $result -> fetch_assoc()){
-              echo '<form action="versionCatch.php" method= "post" id="next-version">';
+              echo '<form action="compareCatch.php" method= "post" id="next-version">';
               echo "<li>";
               echo '<input type="hidden" name="note" value="'.htmlspecialchars($currentNote).'">';
               echo '<input type="hidden" name="currentModDate" value='.$currentModDate.'>';
-              echo '<input type="submit" name="oldVersion" value="'.$row["modified_date"].'" style="font-size: large;">';
+              echo '<input type="submit" name="oldCompare" value="'.$row["modified_date"].'" style="font-size: large;">';
               echo "</li>"; 
               echo "</form>";
             }

@@ -12,8 +12,7 @@ include('cl_DifferenceEngine.php');
   if (($output = message()) !== null) {
     echo $output;
   }
-
-	if(isset($_POST["oldVersion"])){
+	if(isset($_POST["oldVersion"])){;
 	$currentNote = $_POST["note"];
 	$currentModDate = $_POST["currentModDate"];
 	$query = "SELECT * FROM versions WHERE modified_date ='".$_POST["oldVersion"]."'";
@@ -38,7 +37,6 @@ include('cl_DifferenceEngine.php');
     $modDate= $row["modified_date"];
     $note = $row["annotation"];
 	}
-
 ?>
 
 <html lang="en">
@@ -69,30 +67,37 @@ include('cl_DifferenceEngine.php');
   echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 190px">';
   echo '<input type="submit" name="Back to Results" value="Back To Results" style="font-size: larger">';
   echo '</form>';
-
   echo '<form action = "person.php" method ="post" id= "prev-result" style="margin-right: 150px;">';
   echo  '<input type="button" value="Back to Versions" onclick="history.back()" style= "margin-bottom: 0px; margin-top: 30px;">';
   echo '</form>'; 
   ?>
   </div>
   </header>
- <main>
-  <?php 
-  $content = '<table style="margin: 0px 100px 0px 100px; text-align:center;">
-		<th><td style= "width: 50%; font-weight: bold;">Older Version: '.$modDate.'</td></th><th><td style="font-weight:bold;">Current Version: '.$currentModDate.'</td></th>';
-			// $content .='<tr><td class="colHeader">NOTES<br /> <span class="helpNote">Shows only <strong>lines that have changed</strong> with 2 additional lines for context.</span></td><td colspan="2"><table>';
-			  $oa = explode( "\n", str_replace( "\r\n", "\n", $note) );
-			  $ca = explode( "\n", str_replace( "\r\n", "\n", $currentNote) );
-			  $diffs = new Diff( $oa, $ca );
-			  $formatter = new TableDiffFormatter();
-
-			  $content .= $formatter->format( $diffs );
-			  $content .= "</td></tr></table>";
-		$#content .= "</table>";
-
-		$content = '<div class="versionCompare"> ' . $content . '</div>';
-		echo $content;
-  ?>   
-  </main>
+  <main class="flex" style="padding-top:0px;">
+      <div class="card">
+        <h2 class="card-title"><?php echo "Record ID: ".$ID; ?></h2>
+        <h2>General Information:<h2>
+        <ul>
+          <?php
+          echo '<li style="font-weight:normal; display: inline;">First Name: <h4>'.$firstName.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Last Name: <h4>'.$lastName.'</h4></li><br /><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Nickname: <h4>'.$nickName.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Gender: <h4>'.$gender.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Occupation: <h4>'.$job.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Birth: <h4>'.$birthDay.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Death: <h4>'.$deathDay.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Origin: <h4>'.$origin.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Residence: <h4>'.$residence.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Spouse: <h4>'.$spouse.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Parents: <h4>'.$parents.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Children: <h4>'.$children.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
+          echo '<li style="font-weight:normal; display: inline;">Other Relatives: <h4>'.$relative.'</h4></li><br/><br />';
+          ?> 
+        </ul>
+        </div>
+      <div class="card">
+        <h2 class = "card-title">Annotation</h2>
+        <textarea readonly> <?php echo $note; ?></textarea>
+        </div>
    </body>
   </html>

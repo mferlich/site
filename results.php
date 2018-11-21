@@ -94,9 +94,10 @@ $mysqli ->query($query0);
                   echo '<form action = "person.php" method="post" id="results-form">';
                   echo "<td>";
                   echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
-                  // echo '<input type="hidden" name="prevSearch" value='.$name.'>';
+                  #echo '<input type="hidden" name="result" value='.htmlspecialchars($result).'>';
+                 # echo '<input type="hidden" name="prevSearch" value='.$name.'>';
                   echo '<input type="hidden" name="count" value='.$count.'>';
-                  // echo '<input type="hidden" name="field" value='.$_POST["field"].'>';
+                  #echo '<input type="hidden" name="field" value='.$_POST["field"].'>';
                   echo '<input type="submit" name="submit" value='.$row["id"].'>';
                   echo "</td>";
                   #continue with other results
