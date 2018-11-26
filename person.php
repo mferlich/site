@@ -174,11 +174,12 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Geneva Consistory</title>
+  <title><?php echo "Record ID: ".$ID."; First Name: ".$firstName."; Last Name: ".$lastName; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet"></head>
   <body>
+  <div class="forscreen">
     <div class="main-nav">
         <ul class="nav">
           <li><a  class="name" href = "results.php">Back To Results</li>
@@ -255,8 +256,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
           ?>
       </div>
       <div class="card">
-        <h2 class = "card-title">Annotation</h2>
-        <textarea readonly> <?php echo $note; ?></textarea><br />
+        <h2 class = "card-title"><a href="javascript:PrintTextareaContent('idtextareafield','printing_div_id')">Annotation</a></h2>
+        <textarea id= "idtextareafield" readonly> <?php echo $note; ?></textarea><br />
         <?php
         $query1 = "SELECT modified_date FROM versions where recordId=".$ID;
         $result1 = $mysqli->query($query1);
@@ -316,5 +317,14 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
       </ul>
       <p class="copyright">Copyright 2018, Ole Miss</p>
     </footer>
+    </div>
+    <div id="printing_div_id" class="forprinting" style="white-space:pre-line;"></div>
+    <script type="text/javascript">
+    function PrintTextareaContent(textarea_field,printing_div) {
+    document.getElementById(printing_div).innerHTML = document.getElementById(textarea_field).value;
+    print();
+    }
+    </script>
+
   </body>
   </html>
