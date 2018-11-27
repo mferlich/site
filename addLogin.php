@@ -53,12 +53,12 @@ redirect_to("addLogin.php");
 //User does not already exist so add to admins table
 else {
 $query = "INSERT INTO users ";
-$query .= "(username, password) ";
-$query .= "VALUES ('".$username."', '".$password."')";
+$query .= "(username, password, userlevel) ";
+$query .= "VALUES ('".$username."', '".$password."', '".$_POST["level"]."')";
 $result = $mysqli->query($query);
 if ($result) {
 $_SESSION["message"] = "User successfully added";
-redirect_to("index.php");
+redirect_to("home.php");
 }
 else {
 $_SESSION["message"] = "Could not add user!";
@@ -83,6 +83,13 @@ redirect_to("addLogin.php");
 ?>
 <!doctype html>
 <html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Geneva Consistory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet"></head>
+  <body>
 		<div class='row'>
 		<label for='left-label' class='left inline'>
 
@@ -91,8 +98,9 @@ redirect_to("addLogin.php");
 <!--//////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!--    		Create a form with textboxes for adding both a username and password -->
 <form action="addLogin.php" method="post">
- <p>Username:<input type="text" name="username" value="" /> </p>
+ <p>Username: <input type="text" name="username" value=""  style = "width: 10%;"/> </p>
  <p>Password: <input type="password" name="password" value="" /> </p>
+ <p>User Level: <input type="text" name="level" value=""  style = "width: 10%;"/> </p>
  <input type="submit" name="submit" value="Add Administrator" />
 </form>
 
@@ -107,18 +115,19 @@ redirect_to("addLogin.php");
 
 <!--//////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!--    		Display current Administrators.  Also provide a link next to each person that allows you to delete -->
-<!--            them from your database This requires including their id # in the query string -->
-			
+<!--            them from your database This requires including their id # in the query string -->			
 <?php
 $query = "SELECT * from users";
 $result = $mysqli->query($query);
 if ($result && $result->num_rows > 0) {
- echo "<table>";
+ echo "<table style = 'margin-left: 45%;'>";
+ echo "<th>Username</th><th>Userlevel</th>";
  while($row = $result->fetch_assoc()) {
  echo "<tr>";
  echo "<td>".$row["username"]."</td>";
+  echo "<td>".$row["userlevel"]."</td>";
  echo "<td>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href='deleteLogin.php?id=".$row["id"]."'>Delete</a></td>";
+<a href='deleteLogin.php?id=".$row["user_id"]."'>Delete</a></td>";
  echo "</tr>";
 }
 echo "</table><hr /><br /><br />";
@@ -134,5 +143,3 @@ echo "</table><hr /><br /><br />";
 			
 	</div>
 	</label>
-
-<?php  new_footer("Create a Form", $mysqli); ?>

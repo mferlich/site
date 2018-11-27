@@ -1,4 +1,5 @@
 <?php 
+date_default_timezone_set('America/Chicago');
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php"); // INCLUDES SESSION INFORMATION
@@ -103,6 +104,7 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
 
 #get record info after making an edit to a record
   if (isset($_POST["submitEdit"])){
+    $date = date('Y-m-d H:i:s', time());
 
     #MAKES CHANGES TO TEMPORARY SEARCH RESULTS TABLE
     $newNote = htmlspecialchars($_POST["note"], ENT_QUOTES); #REPLACES QUOTES WITH HTML ENTITIES SO THAT THE ANNOTATION WILL BE UPDATED
@@ -140,6 +142,14 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
     $query .= ", annotation='".$newNote."'";
     $query .=" WHERE id ='".$_POST["id"]."'";
     $mysqli->query($query);
+
+
+    $query = "INSERT INTO versions ";
+    $query .= "(recordId, lastname, firstname, nickname, occupation, spouse, parents, children, relations, birthdate, deathdate, origin, residence, annotation, modified_date, modified_by, gender) VALUES ";
+    $query .= "(".$_POST["id"].", '".$_POST["lname"]."', '".$_POST["fname"]."', '".$_POST["nickname"]."', '".$_POST["occupation"]."', '".$_POST["spouse"]."', '".$_POST["parents"]."', '".$_POST["children"]."', '".$_POST["relatives"]."', '".$_POST["birthday"]."', '".$_POST["deathday"]."', '".$_POST["origin"]."', '".$_POST["residence"]."', '".$newNote."', '".$date."', '".$SESSION["username"]."', '".$_POST["gender"]."')";
+    $mysqli->query($query);
+
+
 
     #GETS RECORD WITH NEW CHANGES
     $query = "SELECT * FROM result WHERE id = ".$_POST["id"];

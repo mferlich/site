@@ -32,14 +32,58 @@ $mysqli ->query($query0);
                 $query2 .= " LIKE '".$name."' LIMIT 5";
               }
               else{
-                $query2 = "CREATE TABLE result SELECT *, (@row_number:=@row_number+1) as rn FROM ";
-                $query2 .= "genbios WHERE ".$_POST["field"];
-                $query2 .= " LIKE '%".$name."%'";
+                $query2 = "CREATE TABLE result as SELECT *, (@row_number:=@row_number+1) as rn FROM genbios WHERE ";
+                $query2 .= $_POST["field"]." LIKE ";
+                if($_POST["match"]== "begins"){
+                  $query2 .= "'".$name."%'"; 
+                }
+                elseif($_POST["match"]== "end"){
+                  $query2 .= "'%".$name."'";
+                }
+                elseif($_POST["match"]== "exact"){
+                  $query2 .= "'".$name."'";
+                }
+                else{
+                  $query2 .= "'%".$name."%'";
+                }
+
+                if($_POST["search2"] != ""){
+                  $query2 .= " ".$_POST["andOr1"]." ".$_POST["field2"]." LIKE ";
+                  if($_POST["match2"]== "begins"){
+                  $query2 .= "'".$_POST["search2"]."%'"; 
+                  }
+                  elseif($_POST["match2"]== "end"){
+                    $query2 .= "'%".$_POST["search2"]."'";
+                  }
+                  elseif($_POST["match2"]== "exact"){
+                    $query2 .= "'".$_POST["search2"]."'";
+                  }
+                  else{
+                    $query2 .= "'%".$_POST["search2"]."%'";
+                  }
+                }
+
+                if($_POST["search3"] != ""){
+                  $query2 .= " ".$_POST["andOr2"]." ".$_POST["field3"]." LIKE ";
+                  if($_POST["match3"]== "begins"){
+                  $query2 .= "'".$_POST["search3"]."%'"; 
+                  }
+                  elseif($_POST["match3"]== "end"){
+                    $query2 .= "'%".$_POST["search3"]."'";
+                  }
+                  elseif($_POST["match3"]== "exact"){
+                    $query2 .= "'".$_POST["search3"]."'";
+                  }
+                  else{
+                    $query2 .= "'%".$_POST["search3"]."%'";
+                  }
+                }
+
               }
              $mysqli->query($query2); 
              $query3 = "SELECT * FROM result";
              $result = $mysqli ->query($query3);
-            $count = $result->num_rows;        
+             $count = $result->num_rows;        
             }
   else{
     $mysqli->query($query2); 

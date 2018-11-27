@@ -36,9 +36,11 @@ require_once("session.php");
 
 <main>
   <form action = "results.php" method="post" id="search-form">
-  <!Dropdown for Field Selection>
       
-      <h2 style="font-weight: normal">Field: <select name="field" form="search-form">
+      <!-- Field Selection 1 -->
+      <h2 style="font-weight: normal">
+      Field: 
+      <select name="field" form="search-form">
       <option value="firstname">First Name</option>
       <option value="lastname ">Last Name</option>
       <option value="id">ID</option>
@@ -47,19 +49,92 @@ require_once("session.php");
       <option value="spouse">Spouse</option>
       <option value="occupation">Occcupation</option>
       <option value="parents">Parents</option>
+      <option value="annotation">Annotation</option>
       </select>
       
 
-      <!Dropdown for Match Type Selection>
+      <!-- Match Selection 1 -->
       Match Type:
       <select  class= "custom-select" name="match" form="search-form">
       <option value="includes">Includes</option>
       <option value="exact">Exact</option>
+      <option value="begins">Begins With</option>
+      <option value="end">Ends With</option>
+      </select>
+      </h2>
+      
+      <!-- Search Bar 1 -->
+      <input type="search" name="search" placeholder="Search">
+
+      <!-- AND/OR 1 -->
+      <h2 style="font-weight: normal">
+      <select name="andOr1" form="search-form">
+      <option value="AND">AND</option>
+      <option value="OR">OR</option>
+      </select>
+
+      <!-- Field Selection 2 -->
+      Field: 
+      <select name="field2" form="search-form">
+      <option value="firstname">First Name</option>
+      <option value="lastname ">Last Name</option>
+      <option value="id">ID</option>
+      <option value="nickname">Nickname</option>
+      <option value="gender">Gender</option>
+      <option value="spouse">Spouse</option>
+      <option value="occupation">Occcupation</option>
+      <option value="parents">Parents</option>
+      <option value="annotation">Annotation</option>
+      </select>
+      
+
+      <!-- Match Selection 2 -->
+      Match Type:
+      <select  class= "custom-select" name="match2" form="search-form">
+      <option value="includes">Includes</option>
+      <option value="exact">Exact</option>
+      <option value="begins">Begins With</option>
+      <option value="end">Ends With</option>
+      </select>
+      </h2>
+      
+      <!-- Search Bar 2 -->
+      <input type="search" name="search2" placeholder="Search">
+
+      <!-- AND/OR 2 -->
+      <h2 style="font-weight: normal">
+      <select name="andOr2" form="search-form">
+      <option value="AND">AND</option>
+      <option value="OR">OR</option>
+      </select>
+
+      <!-- Field Selection 3 -->
+      Field: 
+      <select name="field3" form="search-form">
+      <option value="firstname">First Name</option>
+      <option value="lastname ">Last Name</option>
+      <option value="id">ID</option>
+      <option value="nickname">Nickname</option>
+      <option value="gender">Gender</option>
+      <option value="spouse">Spouse</option>
+      <option value="occupation">Occcupation</option>
+      <option value="parents">Parents</option>
+      <option value="annotation">Annotation</option>
+      </select>
+      
+
+      <!-- Match Selection 3 -->
+      Match Type:
+      <select  class= "custom-select" name="match3" form="search-form">
+      <option value="includes">Includes</option>
+      <option value="exact">Exact</option>
       <option value="Begins With">Begins With</option>
       <option value="Ends With">Ends With</option>
-      </select></h2>
+      </select>
+      </h2>
       
-      <input type="search" name="search" placeholder="Search">
+      <!-- Search Bar 3 -->
+      <input type="search" name="search3" placeholder="Search">
       <input type="submit" value=">>" style="border-color: #479652a8" />
     </form>
 </main>
