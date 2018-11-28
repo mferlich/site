@@ -44,6 +44,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   	$field = $_POST["field"];
   	$name = $_POST["prevSearch"];
   	$result = $_POST["result"];
+    $sortBy = $_POST["sortBy"];
+    $ascORdsc = $_POST["ascORdsc"];
   }
 
 #GET RECORD INFO FOR NEXT RESULT 
@@ -72,6 +74,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   	$thisRow = $_POST["thisRow"]+1;
   	$count = $_POST["count"];
   	$result = $_POST["result"];
+    $sortBy = $_POST["sortBy"];
+    $ascORdsc = $_POST["ascORdsc"];
   }
 
 #get record info for previous result
@@ -100,6 +104,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   	$thisRow = $_POST["thisRow"]-1;
   	$count = $_POST["count"];
   	$result = $_POST["result"];
+    $sortBy = $_POST["sortBy"];
+    $ascORdsc = $_POST["ascORdsc"];
   }
 
 #get record info after making an edit to a record
@@ -213,11 +219,15 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   echo '<form action = "person.php" method ="post" id= "back">';
   echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
   echo '<input type="hidden" name="count" value='.$count.'>';
+  echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+  echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
   echo '<input type="submit" name="prev" value="Previous Record" style="font-size: larger">';
   echo '</form>';
   }
 
   echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 190px">';
+  echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+  echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
   echo '<input type="submit" name="Back to Results" value="Back To Results" style="font-size: larger">';
   echo '</form>';
 
@@ -227,6 +237,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   echo '<form action = "person.php" method ="post" id= "next-result">';
   echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
   echo '<input type="hidden" name="count" value='.$count.'>';
+  echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+  echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
   echo '<input type="submit" name="next" value="Next Record" style="font-size: larger">';
   echo '</form>';
   }
@@ -307,7 +319,7 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   }
 
   echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 215px">';
-  echo '<input type="submit" name="Back to Results" value="Back To Results" style="font-size: larger">';
+  echo '<input type="submit" name="BacktoResults" value="Back To Results" style="font-size: larger">';
   echo '</form>';
 
   if($row["rn"] == ($count)){

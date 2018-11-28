@@ -24,6 +24,8 @@ $mysqli ->query($query0);
               $mysqli -> query($query1);
               $name = $_POST["search"];
               $field = $_POST["field"];
+              $sortBy = $_POST["sortBy"];
+              $ascORdsc = $_POST["ascORdsc"];
              #creates temporary table for results
              #if searching by ID only return 1 result
               if($_POST["field"]=="id"){
@@ -80,7 +82,7 @@ $mysqli ->query($query0);
                 }
               }
              $mysqli->query($query2); 
-             $query3 = "SELECT * FROM result ORDER BY ".$_POST["sortBy"]." ".$_POST["ascORdsc"];
+             $query3 = "SELECT * FROM result ORDER BY ".$sortBy." ".$ascORdsc;
              // if($_POST["sortBy"] != "none"){
              //      $query3 .= ' ORDER BY "'.$_POST["sortBy"].'" ';
              //      $query3 .= $_POST["ascORdsc"];
@@ -90,7 +92,9 @@ $mysqli ->query($query0);
             }
   else{
     $mysqli->query($query2); 
-    $query3 = "SELECT * FROM result ORDER BY ".$_POST["sortBy"]." ".$_POST["ascORdsc"];
+    $sortBy = $_POST["sortBy"];
+    $ascORdsc = $_POST["ascORdsc"];
+    $query3 = "SELECT * FROM result ORDER BY ".$sortBy." ".$ascORdsc;
     // if($_POST["sortBy"] != "none"){
     //   $query3 .= ' ORDER BY "'.$_POST["sortBy"].'" ';
     //   $query3 .= $_POST["ascORdsc"];
@@ -147,6 +151,8 @@ $mysqli ->query($query0);
                   echo '<form action = "person.php" method="post" id="results-form">';
                   echo "<td>";
                   echo '<input type="hidden" name="thisRow" value='.$row["rn"].'>';
+                  echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+                  echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
                   #echo '<input type="hidden" name="result" value='.htmlspecialchars($result).'>';
                  # echo '<input type="hidden" name="prevSearch" value='.$name.'>';
                   echo '<input type="hidden" name="count" value='.$count.'>';

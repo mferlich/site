@@ -96,8 +96,8 @@ require_once("session.php");
       <!-- Field Selection 2 -->
       Field: 
       <select name="field2" form="search-form">
-      <option value="firstname">First Name</option>
       <option value="lastname">Last Name</option>
+      <option value="firstname">First Name</option>
       <option value="id">ID</option>
       <option value="nickname">Nickname</option>
       <option value="gender">Gender</option>
@@ -131,6 +131,7 @@ require_once("session.php");
       <!-- Field Selection 3 -->
       Field: 
       <select name="field3" form="search-form">
+      <option value="annotation">Annotation</option>
       <option value="firstname">First Name</option>
       <option value="lastname">Last Name</option>
       <option value="id">ID</option>
@@ -139,7 +140,6 @@ require_once("session.php");
       <option value="spouse">Spouse</option>
       <option value="occupation">Occcupation</option>
       <option value="parents">Parents</option>
-      <option value="annotation">Annotation</option>
       </select>
       
 
