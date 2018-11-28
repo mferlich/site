@@ -237,15 +237,15 @@ footer ul li {
 a.social {
   display: inline-block;
   text-indent: -9999px;
-  margin-left: 5px;
-  width: 30px;
+  width: 100px;
   height: 30px;
-  background-size: 30px 30px;
+  background-size: 100px;
   opacity: .5;
   transition: all .25s;
 }
 a.olemiss {
-  background-image: url(../images/rebs.svg);
+  background-image: url(../images/um.png);
+  background-repeat: no-repeat;
 }
 a.linkedin {
   background-image: url(../images/linkedin.svg);

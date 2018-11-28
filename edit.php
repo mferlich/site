@@ -41,7 +41,6 @@ require_once("session.php");
   }
 
 ?>
-
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -70,7 +69,7 @@ require_once("session.php");
         <h2>General Information:<h2>
         <ul>
         <?php
-        echo '<form action = "person.php" method ="post" id= "edit-page">';
+        echo '<form action = "person.php" name = "edit-page" method ="post" id= "edit-page">';
         echo '<li style="font-weight:normal">First Name:
             <input type="text" name="fname" value="'.$firstName.'">
           </li>';

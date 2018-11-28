@@ -78,16 +78,24 @@ $mysqli ->query($query0);
                     $query2 .= "'%".$_POST["search3"]."%'";
                   }
                 }
-
               }
              $mysqli->query($query2); 
-             $query3 = "SELECT * FROM result";
+             $query3 = "SELECT * FROM result ORDER BY ".$_POST["sortBy"]." ".$_POST["ascORdsc"];
+             // if($_POST["sortBy"] != "none"){
+             //      $query3 .= ' ORDER BY "'.$_POST["sortBy"].'" ';
+             //      $query3 .= $_POST["ascORdsc"];
+             //    }
              $result = $mysqli ->query($query3);
              $count = $result->num_rows;        
             }
   else{
     $mysqli->query($query2); 
-    $query3 = "SELECT * FROM result";
+    $query3 = "SELECT * FROM result ORDER BY ".$_POST["sortBy"]." ".$_POST["ascORdsc"];
+    // if($_POST["sortBy"] != "none"){
+    //   $query3 .= ' ORDER BY "'.$_POST["sortBy"].'" ';
+    //   $query3 .= $_POST["ascORdsc"];
+    // }
+  
     $result = $mysqli ->query($query3);
     $count = $result->num_rows;  
   }
@@ -104,7 +112,8 @@ $mysqli ->query($query0);
   <header>
   <a href="search.php">Back to Search Page</a>
   <br/>
-  <?php echo $count." Results Found"; ?>
+  <?php echo $count." Results Found"; 
+  ?>
   </header>
   <body>
     <table> 

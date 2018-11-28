@@ -2,20 +2,14 @@
 <?php 
 	require_once("includedFunctions.php");
 	
-	new_header("Here is Who's who!", ""); 
 	$mysqli = db_connection();
-///////////////////////////////////////////////////////////////////////////////////
-//  Step 9  -  invoke verify_login
-//				Will redirect to index.php if there is not a SESSION admin_id set
-
-
-///////////////////////////////////////////////////////////////////////////////////
 
 	if (($output = message()) !== null) {
 		echo $output;
 	}
-///////////////////////////////////////////////////////////////////////////////////
-// Step 5.  Get this admins ID and delete from the database
+
+#delete login
+	
 $ID = $_GET["id"];
 $query = "DELETE FROM users ";
 $query .= "WHERE user_id = ".$ID;
@@ -27,9 +21,7 @@ else {
 $_SESSION["message"] = "Unable to delete user";
 }
 
-// Execute query
 
-//////////////////////////////////////////////////////////////////////////////////
 
 
 

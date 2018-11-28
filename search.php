@@ -37,12 +37,32 @@ require_once("session.php");
 <main>
   <form action = "results.php" method="post" id="search-form">
       
+      <!-- Sort By -->
+      <h2 style="font-weight: normal">Sort Results By: 
+      <select name="sortBy" form="search-form">
+      <option value="id">ID</option>
+      <option value="firstname">First Name</option>
+      <option value="lastname">Last Name</option>s
+      <option value="nickname">Nickname</option>
+      <option value="gender">Gender</option>
+      <option value="spouse">Spouse</option>
+      <option value="occupation">Occcupation</option>
+      <option value="parents">Parents</option>
+      <option value="annotation">Annotation</option>
+      </select>
+
+      <select name="ascORdsc" form="search-form">
+      <option value="ASC">Ascending</option>
+      <option value="DESC">Descending</option>
+      </select>
+      </h2>
+
       <!-- Field Selection 1 -->
       <h2 style="font-weight: normal">
       Field: 
       <select name="field" form="search-form">
       <option value="firstname">First Name</option>
-      <option value="lastname ">Last Name</option>
+      <option value="lastname">Last Name</option>
       <option value="id">ID</option>
       <option value="nickname">Nickname</option>
       <option value="gender">Gender</option>
@@ -55,7 +75,7 @@ require_once("session.php");
 
       <!-- Match Selection 1 -->
       Match Type:
-      <select  class= "custom-select" name="match" form="search-form">
+      <select class= "custom-select" name="match" form="search-form">
       <option value="includes">Includes</option>
       <option value="exact">Exact</option>
       <option value="begins">Begins With</option>
@@ -77,7 +97,7 @@ require_once("session.php");
       Field: 
       <select name="field2" form="search-form">
       <option value="firstname">First Name</option>
-      <option value="lastname ">Last Name</option>
+      <option value="lastname">Last Name</option>
       <option value="id">ID</option>
       <option value="nickname">Nickname</option>
       <option value="gender">Gender</option>
@@ -90,7 +110,7 @@ require_once("session.php");
 
       <!-- Match Selection 2 -->
       Match Type:
-      <select  class= "custom-select" name="match2" form="search-form">
+      <select class= "custom-select" name="match2" form="search-form">
       <option value="includes">Includes</option>
       <option value="exact">Exact</option>
       <option value="begins">Begins With</option>
@@ -112,7 +132,7 @@ require_once("session.php");
       Field: 
       <select name="field3" form="search-form">
       <option value="firstname">First Name</option>
-      <option value="lastname ">Last Name</option>
+      <option value="lastname">Last Name</option>
       <option value="id">ID</option>
       <option value="nickname">Nickname</option>
       <option value="gender">Gender</option>
@@ -125,18 +145,20 @@ require_once("session.php");
 
       <!-- Match Selection 3 -->
       Match Type:
-      <select  class= "custom-select" name="match3" form="search-form">
+      <select class= "custom-select" name="match3" form="search-form">
       <option value="includes">Includes</option>
       <option value="exact">Exact</option>
-      <option value="Begins With">Begins With</option>
-      <option value="Ends With">Ends With</option>
+      <option value="begins">Begins With</option>
+      <option value="end">Ends With</option>
       </select>
       </h2>
-      
+
       <!-- Search Bar 3 -->
       <input type="search" name="search3" placeholder="Search">
       <input type="submit" value=">>" style="border-color: #479652a8" />
     </form>
+
+    <h2><a href="addRecord.php">Click Here to Add a Record</a></h2>
 </main>
 
     <footer>
