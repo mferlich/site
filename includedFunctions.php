@@ -1,5 +1,6 @@
 
 <?php
+#CONTAINS ALL FUNCTIONS USED IN BACKGROUND OF SITE
 	function db_connection() {
  require_once("/home/mferlich/DBErlich.php");
  // Creates a database connection

@@ -1,4 +1,5 @@
 <?php 
+#THIS PAGE ALLOWS USERS TO EDIT INVIDIUAL RECORDS
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");
@@ -38,6 +39,8 @@ require_once("session.php");
   	$field = $_POST["field"];
   	$name = $_POST["prevSearch"];
   	$result = $_POST["result"];
+    $sortBy = $_POST["sortBy"];
+    $ascORdsc = $_POST["ascORdsc"];
   }
 
 ?>
@@ -112,6 +115,8 @@ require_once("session.php");
           echo '<input type="hidden" name="id" value='.$ID.'>';
           echo '<input type="hidden" name="count" value='.$count.'>';
           echo '<input type="hidden" name="rowNum" value='.$rowNum.'>';
+          echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+          echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
           echo '<input type="submit" name="submitEdit" value="Confirm Changes" style="font-size: larger; padding: 0px 100px 0px 100px; color: red;">';
           ?>
           </ul>

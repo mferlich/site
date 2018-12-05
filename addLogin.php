@@ -126,8 +126,9 @@ if ($result && $result->num_rows > 0) {
  echo "<tr>";
  echo "<td>".$row["username"]."</td>";
   echo "<td>".$row["userlevel"]."</td>";
+  if($_SESSION["userlevel"]==3){
  echo "<td>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href='deleteLogin.php?id=".$row["user_id"]."'>Delete</a></td>";
+<a href='deleteLogin.php?id=".$row["user_id"]."'>Delete</a></td>";}
  echo "</tr>";
 }
 echo "</table><hr /><br /><br />";

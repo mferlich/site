@@ -22,9 +22,5 @@ $_SESSION["message"] = "Unable to delete user";
 }
 
 
-
-
-
-
 	redirect_to("addLogin.php");	
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+#THIS PAGE ESTABLISHES THE CURRENT USER SESSION AND MAKES SURE THE USER IS LOGGED IN
 	session_start();
 	
 	function message() {

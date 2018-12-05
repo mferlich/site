@@ -1,5 +1,6 @@
 <?php require_once("session.php"); ?>
 <?php 
+#THIS SCRIPT LOGS USERS OUT
 	require_once("includedFunctions.php");
 	verify_login();
 	new_header("Who's Who Login", ""); 
@@ -21,5 +22,4 @@ $_SESSION["user_id"] = NULL;
 
 
  redirect_to("index.php");
- new_footer("Who's Who", $mysqli);
   ?>

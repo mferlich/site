@@ -1,4 +1,5 @@
 <?php 
+#THIS PAGE LISTS OLD VERSIONS OF ANNOTATIONS TO BE COMPARED
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");

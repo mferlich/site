@@ -1,4 +1,5 @@
 <?php 
+#THIS FILE IS FOR DISPLAYING INDIVIUDAL RECORDS
 date_default_timezone_set('America/Chicago');
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
@@ -183,6 +184,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
     $field = $_POST["field"];
     $name = $_POST["prevSearch"];
     $result = $_POST["result"];
+    $sortBy = $_POST["sortBy"];
+    $ascORdsc = $_POST["ascORdsc"];
   }
 ?>
 
@@ -198,7 +201,7 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   <div class="forscreen">
     <div class="main-nav">
         <ul class="nav">
-          <li><a  class="name" href = "results.php">Back To Results</li>
+          <li><a  class="name" href = "search.php">Back To Search Page</li>
           <li><a href="home.php">Home</a></li>
           <?php
           if($_SESSION["userlevel"]==3){
@@ -213,6 +216,7 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   <div class = "button-container">
   <h2>Record <?php echo $row["rn"]." out of ".$count; ?></h2>
   <?php
+  #CREATES THE BACK BUTTON TO VIEW PREVIOUS RECORD IF NOT THE FIRST RECORD
   if($row["rn"]== ($count-$count)+1){
   }
   else{
@@ -224,13 +228,14 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   echo '<input type="submit" name="prev" value="Previous Record" style="font-size: larger">';
   echo '</form>';
   }
-
+  #GOES BACK TO RESULTS PAGE
   echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 190px">';
   echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
   echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
   echo '<input type="submit" name="Back to Results" value="Back To Results" style="font-size: larger">';
   echo '</form>';
 
+  #IF NOT THE LAST RECORD CREATE BUTTON TO GO TO NEXT RESULT
   if($row["rn"] == ($count)){
   }
   else{
@@ -251,6 +256,7 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
         <h2>General Information:<h2>
         <ul>
           <?php
+          #DISPLAYS GENERAL INFORMATION
           echo '<li style="font-weight:normal; display: inline;">First Name: <h4>'.$firstName.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
           echo '<li style="font-weight:normal; display: inline;">Last Name: <h4>'.$lastName.'</h4></li><br /><div style="height:10px;font-size:1px;">&nbsp;</div>';
           echo '<li style="font-weight:normal; display: inline;">Nickname: <h4>'.$nickName.'</h4></li><br/><div style="height:10px;font-size:1px;">&nbsp;</div>';
@@ -267,20 +273,25 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
           ?> 
         </ul>
         <?php
+        #IF USER HAS PRIVLEDGES DISPLAY EDIT PAGE
         if($_SESSION["userlevel"] == 0 || $_SESSION["userlevel"] == 1 || $_SESSION["userlevel"] == 2 ){}
           else{
             echo '<form action = "edit.php" method ="post" id= "edit-page">';
             echo '<input type="hidden" name="id" value='.$ID.'>';
             echo '<input type="hidden" name="count" value='.$count.'>';
+            echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+            echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
             echo '<input type="submit" name="edit" value="Edit This Record" style="font-size: larger; padding: 0px 100px 0px 100px;">';
             echo '</form>';
           }
           ?>
       </div>
+   <!--    DISPLAY ANNOTATION -->
       <div class="card">
         <h2 class = "card-title"><a href="javascript:PrintTextareaContent('idtextareafield','printing_div_id')">Annotation</a></h2>
         <textarea id= "idtextareafield" readonly> <?php echo $note; ?></textarea><br />
         <?php
+        #VERSION CONTROL
         $query1 = "SELECT modified_date FROM versions where recordId=".$ID;
         $result1 = $mysqli->query($query1);
         if ($result1 && $result1 ->num_rows >0){
@@ -319,6 +330,8 @@ require_once("session.php"); // INCLUDES SESSION INFORMATION
   }
 
   echo '<form action = "results.php" method ="post" id= "prev-result" style="margin-right: 215px">';
+  echo '<input type="hidden" name="sortBy" value='.$sortBy.'>';
+  echo '<input type="hidden" name="ascORdsc" value='.$ascORdsc.'>';
   echo '<input type="submit" name="BacktoResults" value="Back To Results" style="font-size: larger">';
   echo '</form>';
 

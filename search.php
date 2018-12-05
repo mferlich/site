@@ -1,4 +1,5 @@
 <?php 
+#THIS IS THE SEARCH PAGE FOR THE WEBSITE
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");
@@ -157,8 +158,11 @@ require_once("session.php");
       <input type="search" name="search3" placeholder="Search">
       <input type="submit" value=">>" style="border-color: #479652a8" />
     </form>
-
-    <h2><a href="addRecord.php">Click Here to Add a Record</a></h2>
+    <?php 
+    if($_SESSION["userlevel"] == 2 || $_SESSION["userlevel"] == 3){
+    echo '<h2><a href="addRecord.php">Click Here to Add a Record</a></h2>';
+    }
+    ?>
 </main>
 
     <footer>

@@ -13,6 +13,8 @@ require_once("session.php");
     echo $output;
   }
 
+  #THIS PAGE CONFIRMS THE RECORD GETS ADDED TO DB BEFORE REDIRECTING BACK TO HOME 
+
   $date = date('Y-m-d H:i:s', time());
   $newNote = htmlspecialchars($_POST["note"], ENT_QUOTES);
 

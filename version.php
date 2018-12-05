@@ -1,4 +1,5 @@
 <?php 
+#THIS PAGE DISPLAYS OLD VERSIONS OF RECORDS TO BE VIEWED
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");

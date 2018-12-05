@@ -1,4 +1,5 @@
 <?php
+#THIS FILE IS FOR DISPLAYING RESULTS OF A SEARCH 
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php"); ?>
@@ -10,16 +11,12 @@ require_once("session.php"); ?>
   if (($output = message()) !== null) {
     echo $output;
   }
-  // #create pagnation
-  // $results_per_page = 20;
-  // if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
-  // $start_from = ($page-1) * $results_per_page;
+  
+#uses row number to list results in an order
 $query0 = "SET @row_number=0";
 $mysqli ->query($query0);
-#if new search DROP table if exists
-// $query1 = "DROP TABLE IF EXISTS result";
-// $mysqli -> query($query1);
   if(isset($_POST["search"])){
+    #if new search DROP table if exists
               $query1 = "DROP TABLE IF EXISTS result";
               $mysqli -> query($query1);
               $name = $_POST["search"];
@@ -31,7 +28,7 @@ $mysqli ->query($query0);
               if($_POST["field"]=="id"){
                 $query2 = "CREATE TABLE result as SELECT *, (@row_number:=@row_number+1) as rn FROM ";
                 $query2 .= "genbios WHERE ".$_POST["field"];
-                $query2 .= " LIKE '".$name."' LIMIT 5";
+                $query2 .= " LIKE '".$name."' LIMIT 1";
               }
               else{
                 $query2 = "CREATE TABLE result as SELECT *, (@row_number:=@row_number+1) as rn FROM genbios WHERE ";
@@ -49,6 +46,7 @@ $mysqli ->query($query0);
                   $query2 .= "'%".$name."%'";
                 }
 
+                # if used append input from second search bar
                 if($_POST["search2"] != ""){
                   $query2 .= " ".$_POST["andOr1"]." ".$_POST["field2"]." LIKE ";
                   if($_POST["match2"]== "begins"){
@@ -64,7 +62,7 @@ $mysqli ->query($query0);
                     $query2 .= "'%".$_POST["search2"]."%'";
                   }
                 }
-
+                # if used append input from third search bar
                 if($_POST["search3"] != ""){
                   $query2 .= " ".$_POST["andOr2"]." ".$_POST["field3"]." LIKE ";
                   if($_POST["match3"]== "begins"){
@@ -81,25 +79,18 @@ $mysqli ->query($query0);
                   }
                 }
               }
+              #display information created in results table
              $mysqli->query($query2); 
              $query3 = "SELECT * FROM result ORDER BY ".$sortBy." ".$ascORdsc;
-             // if($_POST["sortBy"] != "none"){
-             //      $query3 .= ' ORDER BY "'.$_POST["sortBy"].'" ';
-             //      $query3 .= $_POST["ascORdsc"];
-             //    }
              $result = $mysqli ->query($query3);
              $count = $result->num_rows;        
             }
+  #if not coming from search page
   else{
     $mysqli->query($query2); 
     $sortBy = $_POST["sortBy"];
     $ascORdsc = $_POST["ascORdsc"];
-    $query3 = "SELECT * FROM result ORDER BY ".$sortBy." ".$ascORdsc;
-    // if($_POST["sortBy"] != "none"){
-    //   $query3 .= ' ORDER BY "'.$_POST["sortBy"].'" ';
-    //   $query3 .= $_POST["ascORdsc"];
-    // }
-  
+    $query3 = "SELECT * FROM result ORDER BY ".$sortBy." ".$ascORdsc; 
     $result = $mysqli ->query($query3);
     $count = $result->num_rows;  
   }

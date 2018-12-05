@@ -1,4 +1,5 @@
 <?php 
+#THIS PAGE PULLS THE CLICKED ON VERSION FROM THE VERSION.PHP PAGE
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");

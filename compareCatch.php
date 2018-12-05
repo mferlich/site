@@ -1,4 +1,5 @@
 <?php 
+#THIS PAGE PULLS THE PARTIUCLAR VERSION TO COMPARE THE PREVIOUS VERSIOO TO FROM THE COMPARE.PHP PAGE
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");

@@ -1,4 +1,5 @@
 <?php 
+#THIS PAGE ALLOWS USERS TO ADD NEW RECORDS TO THE DATABASE
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works 
 require_once("session.php");

@@ -2,6 +2,7 @@
 <!-- Includes the session functions> -->
 <?php require_once("session.php"); ?>
 <?php 
+  #THIS PAGE ALLOWS USERS TO CHANGE THEIR PASSWORDS
   #establishes DB connection and includes various global functions
   verify_login();
   require_once("includedFunctions.php"); 
@@ -46,19 +47,28 @@
      <main class="flex">
       <div class="card">
         <h2 class="section-title">Account Information</h2>
-        <p>Last Name: </p>
-        <p>First Name: </p>
-        <p>Email: </p>
+        <p>Username: <?php echo $_SESSION["username"];?></p>
+        <p>Userlevel: <?php echo $_SESSION["userlevel"];
+        if($_SESSION["userlevel"]==0){
+          echo "<br>Read Only Privileges";
+        }
+        else{
+          echo "<br>Admin User";
+        }
+        ?></p>
+        <p></p>
 
       </div> 
 
       <div class="card">
         <h2 class = "section-title">Change Password</h2>
-        <p>Current:</p>
-        <p>New:</p>
-        <p>Confirm New:</p> 
+        <form action = "changePassword.php" method= "post">
+        <p>Current:  <input type="password" name="oldPassword" value="" style="width:50%; margin-left: 40px;" /> </p>
+        <p>New:  <input type="password" name="newPassword" value="" style="width:50%; margin-left: 60px;" /> </p>
+        <p>Confirm New:  <input type="password" name="newPassword2" value="" style="width:50%" /> </p> 
+        <input type="submit" name="changePass" value="Change Password" style="width: 200px; font-size:larger;" />
+        </form>
       </div> 
-
     </main>
   </body>
 </html>
